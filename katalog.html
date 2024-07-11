@@ -46,14 +46,66 @@
         
         .side-navbar a {
             text-decoration: none;
-            color: #333;
-            font-weight: bold;
             padding: 10px 20px;
             text-align: center;
         }
         
+        .side-navbar img {
+            width: 30px; /* Adjust the size of the images */
+            height: auto;
+        }
+        
         .side-navbar a:hover {
             background-color: #f0f0f0;
+        }
+        
+        .cart-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            cursor: pointer;
+            z-index: 1100; /* Ensure cart icon is above other elements */
+        }
+        
+        .cart-container {
+            display: none;
+            position: fixed;
+            top: 50px;
+            right: 10px;
+            width: 300px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            z-index: 1000;
+        }
+        
+        .cart-container h3 {
+            margin-bottom: 10px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .cart-item p {
+            margin: 0;
+        }
+        
+        .send-button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .send-button:hover {
+            background-color: #45a049;
         }
         
         main {
@@ -136,18 +188,20 @@
         .add-to-cart-button:hover {
             background-color: #45a049;
         }
-
+        
         .search-container {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
+            margin-top: 20px; /* Added margin-top to lower the search bar */
             display: flex;
-            justify-content: center;
+            justify-content: flex-start; /* Align search bar to the left */
             align-items: center;
         }
         
         .search-input {
             width: 70%;
+            max-width: 300px; /* Set maximum width for better responsiveness */
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -167,7 +221,7 @@
         .search-button:hover {
             background-color: #0277bd;
         }
-
+        
         @media (max-width: 768px) {
             .side-navbar {
                 padding: 10px;
@@ -193,20 +247,29 @@
                 margin-left: 0;
                 padding: 10px;
             }
-        }
+        
+            .search-input {
+                width: 50%; /* Reduce width for smaller screens */
+            }
+        }        
     </style>
 </head>
 <body>
     <div class="container">
         <nav class="side-navbar">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="katalog.html">Shop</a></li>
-                <li><a href="perbaikan.html">Keranjang</a></li>
-                <li><a href="d.html">Send Your Document</a></li>
+                <li><a href="index.html"><img src="h.jpg" alt="Home"></a></li>
+                <li><a href="katalog.html"><img src="kkk.jpeg" alt="Shop"></a></li>
+                <li><a href="bay.html"><img src="s.png" alt="Keranjang"></a></li>
+                <li><a href="d.html"><img src="kk.png" alt="Send Your Document"></a></li>
             </ul>
-            </div>
         </nav>
+        <img src="ka.jpg" alt="Cart" class="cart-icon" onclick="toggleCart()">
+        <div class="cart-container" id="cartContainer">
+            <h3>Keranjang</h3>
+            <div id="cartItems"></div>
+            <button class="send-button" onclick="sendOrderToWhatsApp()">Kirim</button>
+        </div>
         <main>
             <div class="search-container">
                 <input type="text" class="search-input" id="searchInput" placeholder="Search...">
@@ -218,7 +281,7 @@
                     <div class="product-info">
                         <div class="product-name">Amplop Coklat F4</div>
                         <div class="product-price">Rp. 3.000</div>
-                        <button class="add-to-cart-button">Add to Cart</button>
+                        <button class="add-to-cart-button" onclick="addToCart('Amplop Coklat F4', 'Rp. 3.000')">Add to Cart</button>
                     </div>
                 </div>
             </a>
@@ -228,7 +291,7 @@
                     <div class="product-info">
                         <div class="product-name">Amplop Coklat Tali F4</div>
                         <div class="product-price">Rp. 4.000</div>
-                        <button class="add-to-cart-button">Add to Cart</button>
+                        <button class="add-to-cart-button" onclick="addToCart('Amplop Coklat Tali F4', 'Rp. 4.000')">Add to Cart</button>
                     </div>
                 </div>
             </a>
@@ -238,7 +301,7 @@
                     <div class="product-info">
                         <div class="product-name">Map Merah</div>
                         <div class="product-price">Rp. 3.000</div>
-                        <button class="add-to-cart-button">Add to Cart</button>
+                        <button class="add-to-cart-button" onclick="addToCart('Map Merah', 'Rp. 3.000')">Add to Cart</button>
                     </div>
                 </div>
             </a>
@@ -248,13 +311,30 @@
                     <div class="product-info">
                         <div class="product-name">Bulpoin Hitam</div>
                         <div class="product-price">Rp. 2.000</div>
-                        <button class="add-to-cart-button">Add to Cart</button>
+                        <button class="add-to-cart-button" onclick="addToCart('Bulpoin Hitam', 'Rp. 2.000')">Add to Cart</button>
                     </div>
                 </div>
             </a>
         </main>
     </div>
     <script>
+        function toggleCart() {
+            var cartContainer = document.getElementById('cartContainer');
+            if (cartContainer.style.display === "none" || cartContainer.style.display === "") {
+                cartContainer.style.display = "block";
+            } else {
+                cartContainer.style.display = "none";
+            }
+        }
+
+        function addToCart(productName, productPrice) {
+            var cartItems = document.getElementById('cartItems');
+            var cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = '<p>' + productName + '</p><p>' + productPrice + '</p>';
+            cartItems.appendChild(cartItem);
+        }
+
         function searchProducts() {
             var input, filter, cards, card, productName, i, txtValue;
             input = document.getElementById('searchInput');
@@ -272,6 +352,26 @@
                 }
             });
         }
+
+        function sendOrderToWhatsApp() {
+            var cartItems = document.querySelectorAll('.cart-item');
+            var message = "Pesanan Anda:\n";
+        
+            cartItems.forEach(function(item) {
+                var productName = item.querySelector('p:first-child').innerText;
+                var productPrice = item.querySelector('p:last-child').innerText;
+                message += productName + " - " + productPrice + "\n";
+            });
+        
+            // Replace this with your WhatsApp number and message format
+            var whatsappNumber = "+6285863480772"; // Replace with your WhatsApp number
+            var whatsappMessage = encodeURIComponent(message);
+            var whatsappUrl = `https://wa.me/${+6285863480772}?text=${whatsappMessage}`;
+        
+            // Open WhatsApp with prefilled message
+            window.open(whatsappUrl, '_blank');
+        }
+        
     </script>
 </body>
 </html>
