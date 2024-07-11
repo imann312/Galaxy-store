@@ -3,61 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katalog Produk</title>
-    <link rel="stylesheet" href="k.css">
+    <title>Food Mart - Shopping</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-grow: 1;
+            position: relative;
+        }
+        
+        .side-navbar {
+            width: 200px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000;
+        }
+        
+        .side-navbar .logo {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .side-navbar .logo span {
+            color: #ff9800;
+        }
+        
+        .side-navbar ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .side-navbar a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        
+        .side-navbar a:hover {
+            background-color: #f0f0f0;
+        }
+        
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+            margin-left: 200px;
+            margin-bottom: 100px; /* Ensure cards are above navbar */
+        }
+        
+        .card {
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+        }
+        
+        .card-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .card-text {
+            text-align: left;
+            margin-right: 20px;
+        }
+        
+        .card img {
+            width: 40%;
+            height: auto;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+        
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex-grow: 1;
+        }
+        
+        .product-name {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px; /* Added margin bottom */
+        }
+        
+        .add-to-cart-button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .add-to-cart-button:hover {
+            background-color: #45a049;
+        }
+
+        .search-container {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .search-input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        .search-button {
+            padding: 10px 20px;
+            background-color: #0288d1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .search-button:hover {
+            background-color: #0277bd;
+        }
+
+        @media (max-width: 768px) {
+            .side-navbar {
+                padding: 10px;
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        
+            .side-navbar ul {
+                flex-direction: row;
+                gap: 20px;
+            }
+        
+            .side-navbar a {
+                padding: 10px;
+            }
+        
+            .container {
+                flex-direction: column;
+            }
+        
+            main {
+                margin-left: 0;
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <nav class="side-navbar">
-            <div class="logo">Eno <span>Copy</span></div>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="katalog.html">Katalog</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="katalog.html">Shop</a></li>
+                <li><a href="perbaikan.html">Keranjang</a></li>
                 <li><a href="d.html">Send Your Document</a></li>
-                <li><a href="keranjang.html">Keranjang</a></li>
             </ul>
+            <div class="logo">
+                Eno <span>Copy</span>
+            </div>
         </nav>
         <main>
-            <input type="text" id="search-input" placeholder="Search products...">
-            <div class="product-catalog" id="product-catalog">
-                <div class="card" id="card-1">
-                    <img src="p.png" alt="Smoothie">
-                    <div class="card-content">
-                        <h2>PRINT</h2>
-                        <p>Best selling summer juice with natural extracts</p>
-                        <button class="add-to-cart" data-product="PRINT">Add to Cart</button>
-                    </div>
-                </div>
-                <div class="card" id="card-2">
-                    <img src="copy.jpg" alt="Fruits">
-                    <div class="card-content">
-                        <h2>COPY</h2>
-                        <p>Shop the category</p>
-                        <button class="add-to-cart" data-product="COPY">Add to Cart</button>
-                    </div>
-                </div>
-                <div class="card" id="card-3">
-                    <img src="scannn.png" alt="Baked Products">
-                    <div class="card-content">
-                        <h2>SCAN</h2>
-                        <p>Shop the category</p>
-                        <button class="add-to-cart" data-product="SCAN">Add to Cart</button>
-                    </div>
-                </div>
-                <div class="card" id="card-4">
-                    <img src="cover.png" alt="Cover">
-                    <div class="card-content">
-                        <h2>COVER</h2>
-                        <p>Shop the category</p>
-                        <button class="add-to-cart" data-product="COVER">Add to Cart</button>
-                    </div>
-                </div>
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search...">
+                <button class="search-button" onclick="searchProducts()">Search</button>
             </div>
+            <a href="#" class="card" id="card-1">
+                <div class="card-content">
+                    <img src="p.png" alt="Print">
+                    <div class="product-info">
+                        <div class="product-name">PRINT</div>
+                        <div class="product-price">Rp. 10.000</div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="card" id="card-2">
+                <div class="card-content">
+                    <img src="copy.jpg" alt="Copy">
+                    <div class="product-info">
+                        <div class="product-name">COPY</div>
+                        <div class="product-price">Rp. 10.000</div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="card" id="card-3">
+                <div class="card-content">
+                    <img src="scannn.png" alt="Scan">
+                    <div class="product-info">
+                        <div class="product-name">SCAN</div>
+                        <div class="product-price">Rp. 10.000</div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="card" id="card-4">
+                <div class="card-content">
+                    <img src="cover.png" alt="Cover">
+                    <div class="product-info">
+                        <div class="product-name">COVER</div>
+                        <div class="product-price">Rp. 10.000</div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+                </div>
+            </a>
         </main>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script src="js.java"></script>
-    <script src="k.java"></script>
+    <script>
+        function searchProducts() {
+            var input, filter, cards, card, productName, i, txtValue;
+            input = document.getElementById('searchInput');
+            filter = input.value.toUpperCase();
+            cards = document.querySelectorAll('.card');
+            
+            cards.forEach(function(card) {
+                productName = card.querySelector('.product-name');
+                txtValue = productName.textContent || productName.innerText;
+                
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 </html>

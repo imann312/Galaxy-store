@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Teks Berjalan Kiri ke Kanan</title>
+<style>
+#container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#teks-container {
+  position: absolute;
+  top: 50%;
+  left: 100%; /* Posisi awal di luar layar (kanan) */
+  transform: translateY(-50%); /* Memposisikan teks di tengah vertikal */
+  white-space: nowrap; /* Agar teks tidak pindah ke baris baru */
+  display: inline-block; /* Memungkinkan teks untuk bergerak */
+  font-size: 36px; /* Ukuran teks */
+}
+
+#back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 15px 30px; /* Besarkan ukuran tombol */
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 18px; /* Besarkan ukuran teks tombol */
+}
+
+#back-button:hover {
+  background-color: #45a049;
+}
+
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="teks-container">
+    <div id="teks">sedang dalam masa pembuatan</div>
+    <div id="teks2">under construction</div>
+  </div>
+</div>
+
+<button id="back-button" onclick="goBack()">Back</button>
+
+<script>
+var teksContainer = document.getElementById('teks-container');
+var x = teksContainer.offsetWidth; // Lebar teks
+
+function scrollTeks() {
+  x--;
+  teksContainer.style.left = x + 'px';
+  if (x < -teksContainer.offsetWidth) {
+    x = teksContainer.offsetWidth;
+  }
+}
+
+setInterval(scrollTeks, 50); // Kecepatan scrolling (dalam milidetik)
+
+function goBack() {
+  window.history.back();
+}
+</script>
+</body>
+</html>

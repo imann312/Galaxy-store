@@ -3,29 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keranjang</title>
-    <link rel="stylesheet" href="k.css">
+    <title>Keranjang Belanja</title>
+    <style>
+        /* CSS Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure full viewport height */
+            background-color: #f4f4f4;
+        }
+        
+        .header {
+            background-color: #4CAF50;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            z-index: 2;
+        }
+        
+        .container {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative; /* Needed for stacking context */
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            width: 100%;
+        }
+        
+        .cart-item img {
+            max-width: 100px;
+            border-radius: 5px;
+        }
+        
+        .cart-item-details {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+        
+        .cart-item-details h4 {
+            margin: 0;
+        }
+        
+        .cart-item-details p {
+            margin: 5px 0;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+        
+        .cart-item-quantity input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin: 0 10px;
+        }
+        
+        .cart-item-quantity button {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        
+        .cart-item-remove {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        
+        .cart-summary {
+            text-align: right;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 600px;
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .cart-summary h3 {
+            margin: 0;
+        }
+        
+        .checkout-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+        
+        .checkout-button:hover {
+            background-color: #45a049;
+        }
+        
+        /* Side Bottom Navigation */
+        .side-bottom-navbar {
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000; /* Ensure above other content */
+        }
+        
+        .side-bottom-navbar .logo {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .side-bottom-navbar .logo span {
+            color: #ff9800;
+        }
+        
+        .side-bottom-navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .side-bottom-navbar a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        
+        .side-bottom-navbar a:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        
+            .cart-item img {
+                max-width: 80px;
+                margin-bottom: 10px;
+            }
+        
+            .cart-item-details {
+                margin-left: 0;
+            }
+        
+            .cart-item-quantity {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+        
+            .cart-item-remove {
+                align-self: flex-end;
+                margin-top: 10px;
+            }
+        
+            .checkout-button {
+                margin-top: 30px;
+            }
+        
+            .container {
+                padding: 10px;
+            }
+        
+            .cart-summary {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cart-item-quantity button, .cart-item-quantity input {
+                padding: 5px;
+            }
+        
+            .cart-item-details p {
+                margin: 3px 0;
+            }
+        
+            .checkout-button {
+                padding: 8px;
+            }
+        }
+    </style>
+    <script>
+        // JavaScript Functions
+        function loadCart() {
+            const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            const cartContainer = document.getElementById('cartContainer');
+            const cartSummary = document.getElementById('cartSummary');
+        
+            cartContainer.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p>Ukuran: ${item.size}</p>
+                        <p>Warna: ${item.color}</p>
+                        <p>Harga: Rp ${item.price.toLocaleString('id-ID')}</p>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button onclick="updateQuantity(${index}, -1)">-</button>
+                        <input type="text" value="${item.quantity}" readonly>
+                        <button onclick="updateQuantity(${index}, 1)">+</button>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeItem(${index})">Hapus</button>
+                </div>
+            `).join('');
+        
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            cartSummary.innerHTML = `<h3>Total: Rp ${total.toLocaleString('id-ID')}</h3>`;
+        }
+        
+        function updateQuantity(index, change) {
+            const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+        
+        function removeItem(index) {
+            const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+        
+        function checkout() {
+            const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Keranjang belanja Anda kosong!');
+                return;
+            }
+        
+            let message = 'Halo, saya ingin memesan barang-barang berikut:\n\n';
+            cart.forEach(item => {
+                message += `Nama Barang: ${item.name}\n`;
+                message += `Ukuran: ${item.size}\n`;
+                message += `Warna: ${item.color}\n`;
+                message += `Harga: Rp ${item.price.toLocaleString('id-ID')}\n`;
+                message += `Jumlah: ${item.quantity}\n\n`;
+            });
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            message += `Total Harga: Rp ${total.toLocaleString('id-ID')}\n\n`;
+            message += 'Terima kasih.';
+        
+            console.log('Redirecting to WhatsApp with message:', message); // Debugging message
+            const whatsappUrl = `https://wa.me/6285863480772?text=${encodeURIComponent(message)}`;
+            window.location.href = whatsappUrl;
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadCart);
+    </script>
 </head>
 <body>
-    <div class="container">
-        <nav class="side-navbar">
-            <div class="logo">Eno <span>Copy</span></div>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="katalog.html">Katalog</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="d.html">Send Your Document</a></li>
-                <li><a href="keranjang.html">Keranjang</a></li>
-            </ul>
-        </nav>
-        <main>
-            <h1>Keranjang</h1>
-            <div id="cart">
-                <!-- Cart items will be displayed here -->
-            </div>
-            <a id="whatsapp-link" href="#" target="_blank">Checkout via WhatsApp</a>
-        </main>
+    <div class="header">
+        <h1>Keranjang Belanja</h1>
     </div>
-    <script src="js/cart.js"></script>
+    <div class="container" id="cartContainer">
+        <!-- Produk keranjang akan ditampilkan di sini -->
+    </div>
+    <div class="cart-summary" id="cartSummary">
+        <!-- Ringkasan keranjang akan ditampilkan di sini -->
+    </div>
+    <button class="checkout-button" onclick="checkout()">Checkout</button>
+    
+    <!-- Side Bottom Navigation -->
+    <nav class="side-bottom-navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="katalog.html">Shop</a></li>
+            <li><a href="keranjang.html">Keranjang</a></li>
+            <li><a href="d.html">Send Your Document</a></li>
+        </ul>
+        <div class="logo">
+            Eno <span>Copy</span>
+        </div>
+    </nav>
 </body>
 </html>

@@ -4,18 +4,196 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Mart</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure full viewport height */
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: row; /* Arrange items horizontally */
+            flex-grow: 1; /* Grow to fill remaining space */
+            position: relative; /* Needed for stacking context */
+        }
+        
+        .side-navbar {
+            width: 200px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow at bottom */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0; /* Adjust padding as needed */
+            position: fixed;
+            bottom: 0; /* Fixed position at the bottom */
+            z-index: 1000; /* Ensure navbar is above other content */
+        }
+        
+        .side-navbar .logo {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .side-navbar .logo span {
+            color: #ff9800;
+        }
+        
+        .side-navbar ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            gap: 10px; /* Add spacing between items */
+        }
+        
+        .side-navbar a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        
+        .side-navbar a:hover {
+            background-color: #f0f0f0;
+        }
+        
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+            margin-left: 200px; /* Adjust to leave space for sidebar */
+            margin-bottom: 100px; /* Ensure cards are above navbar */
+        }
+        
+        
+        .card {
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .card-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .card-text {
+            text-align: left;
+            margin-right: 20px;
+        }
+        
+        .card img {
+            width: 40%;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        #card-1 {
+            background-color: #e3f2fd;
+        }
+        
+        #card-2 {
+            background-color: #e8f5e9;
+        }
+        
+        #card-3 {
+            background-color: #fff3e0;
+        }
+        
+        #card-4 {
+            background-color: #ffe0b2;
+        }
+        
+        h2 {
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #0288d1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0277bd;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .side-navbar {
+                padding: 10px; /* Adjust padding for smaller screens */
+                width: 100%; /* Full width on smaller screens */
+                flex-direction: row; /* Arrange items horizontally */
+                justify-content: space-around; /* Center items horizontally */
+            }
+
+            .side-navbar ul {
+                flex-direction: row; /* Stack items horizontally on small screens */
+                gap: 20px; /* Add spacing between items */
+            }
+
+            .side-navbar a {
+                padding: 10px; /* Adjust padding for smaller screens */
+            }
+
+            .container {
+                flex-direction: column; /* Stack items vertically on smaller screens */
+            }
+
+            main {
+                margin-left: 0; /* Remove margin for main content */
+                padding: 10px; /* Adjust padding for smaller screens */
+            }
+        }
+        
+    </style>
 </head>
 <body>
     <div class="container">
         <nav class="side-navbar">
-            <div class="logo">Eno <span>Copy</span></div>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="katalog.html">Shop</a></li>
-                <li><a href="#">calculator</a></li>
+                <li><a href="perbaikan.html">Keranjang</a></li>
                 <li><a href="d.html">Send Your Document</a></li>
             </ul>
+            <div class="logo">
+                Eno <span>Copy</span>
+            </div>
         </nav>
         <main>
             <a href="print.html" class="card" id="card-1">
@@ -56,7 +234,5 @@
             </a>
         </main>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script src="js.java"></script>
 </body>
 </html>
