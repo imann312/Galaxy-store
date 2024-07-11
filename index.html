@@ -3,116 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Price List Eno Foto Copy</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            height: 100vh;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-            z-index: 2;
-        }
-
-        h1 {
-            color: #000000;
-            font-size: 24px;
-        }
-
-        .button-container {
-            margin: 20px 0;
-        }
-
-        .button {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 200px;
-            height: 100px;
-            padding: 10px;
-            margin: 10px 0;
-            background-color: #00bfff;
-            color: #000000;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 5px;
-            border: 2px solid #000000;
-        }
-
-        .button img {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 5px;
-        }
-
-        .send-dokumen {
-            margin-top: 30px;
-        }
-
-        .dokumen-button {
-            display: block;
-            width: 200px;
-            padding: 15px 0;
-            margin: 50px 0; /* Increased margin for more space */
-            background-color: #ff0019;
-            color: #000000;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 5px;
-            border: 2px solid #000000;
-        }
-
-        .dokumen-button:hover {
-            background-color: #008fbf;
-        }
-        /* Media Query for Mobile Devices */
-        @media (max-width: 768px) {
-            .container {
-                margin-top: 20px; /* Adjust margin for smaller screens */
-            }
-
-            .dokumen-button {
-                margin: 20px 0; /* Adjust margin for smaller screens */
-            }
-        }
-    </style>
+    <title>Food Mart</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Price List<br>Eno Foto Copy</h1>
-        <div class="button-container">
-            <a href="copy.html" class="button copy-button">
-                <img src="copy.jpg" alt="Copy Icon">
-                <span>COPY</span>
+        <nav class="side-navbar">
+            <div class="logo">Eno <span>Copy</span></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="katalog.html">Shop</a></li>
+                <li><a href="#">calculator</a></li>
+                <li><a href="d.html">Send Your Document</a></li>
+            </ul>
+        </nav>
+        <main>
+            <a href="print.html" class="card" id="card-1">
+                <div class="card-content">
+                    <div class="card-text">
+                        <h2>PRINT</h2>
+                        <p>Click to see pricing</p>
+                    </div>
+                    <img src="p.png" alt="Print">
+                </div>
             </a>
-            <a href="print.html" class="button print-button">
-                <img src="p.png" alt="Print Icon">
-                <span>PRINT</span>
+            <a href="copy.html" class="card" id="card-2">
+                <div class="card-content">
+                    <div class="card-text">
+                        <h2>COPY</h2>
+                        <p>Click to see pricing</p>
+                    </div>
+                    <img src="copy.jpg" alt="Copy">
+                </div>
             </a>
-            <a href="scan.html" class="button scan-button">
-                <img src="scannn.png" alt="Scan Icon">
-                <span>SCAN</span>
+            <a href="scan.html" class="card" id="card-3">
+                <div class="card-content">
+                    <div class="card-text">
+                        <h2>SCAN</h2>
+                        <p>Click to see pricing</p>
+                    </div>
+                    <img src="scannn.png" alt="Scan">
+                </div>
             </a>
-            <a href="cover.html" class="button cover-button">
-                <img src="cover.png" alt="Cover Icon">
-                <span>COVER</span>
+            <a href="cover.html" class="card" id="card-4">
+                <div class="card-content">
+                    <div class="card-text">
+                        <h2>COVER</h2>
+                        <p>Click to see pricing</p>
+                    </div>
+                    <img src="cover.png" alt="Cover">
+                </div>
             </a>
-        </div>
-        <div class="send-dokumen">
-            <a href="d.html" class="dokumen-button">send your Dokumen</a>
-        </div>
+        </main>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="js.java"></script>
 </body>
 </html>
