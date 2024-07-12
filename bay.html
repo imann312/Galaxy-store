@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pembayaran</title>
+    <title>Eno Foto Copy</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,53 +15,58 @@
             flex-direction: column;
             align-items: center;
         }
-        
+
         .container {
             width: 100%;
             max-width: 400px;
             position: relative;
-        }
-        
-        .side-navbar {
-            width: 200px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow at bottom */
+            padding-bottom: 80px; /* Ensure space for the fixed navbar */
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 10px 0; /* Adjust padding as needed */
-            position: fixed;
-            bottom: 0; /* Fixed position at the bottom */
-            z-index: 1000; /* Ensure navbar is above other content */
         }
+
+        .side-navbar {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Shadow at top */
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000;
+        }
+
         .side-navbar ul {
             list-style: none;
             display: flex;
-            flex-direction: column; /* Stack items vertically */
-            gap: 10px; /* Add spacing between items */
+            gap: 10px;
+            padding: 0;
+            margin: 0;
         }
-        
+
         .side-navbar a {
             text-decoration: none;
             color: #333;
             font-weight: bold;
-            padding: 10px 20px;
             text-align: center;
         }
-        
+
         .side-navbar a:hover {
             background-color: #f0f0f0;
         }
 
         .side-navbar img {
-            width: 30px; /* Adjust the size of the images */
+            width: 30px;
             height: auto;
         }
-        
-        .h2 {
-            margin-top: 40px;
+
+        h2 {
+            margin-top: 20px;
         }
-        
+
         .payment-method {
             margin: 20px;
             padding: 20px;
@@ -73,15 +78,15 @@
             max-width: 400px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        
+
         .dana {
             background-color: #cfe2f3;
         }
-        
+
         .bca {
             background-color: #fce5cd;
         }
-        
+
         .copy-button {
             background-color: #000;
             color: #fff;
@@ -91,28 +96,43 @@
             cursor: pointer;
             border-radius: 5px;
         }
-        
+
         .copy-button:hover {
             background-color: #333;
         }
-        
+
         img {
             max-width: 100%;
             height: auto;
-        }        
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .side-navbar {
+                padding: 20px; /* Adjust padding for smaller screens */
+                width: 100%; /* Full width on smaller screens */
+                flex-direction: row; /* Arrange items horizontally */
+                justify-content: space-around; /* Center items horizontally */
+            }
+
+            .side-navbar ul {
+                flex-direction: row; /* Stack items horizontally on small screens */
+                gap: 20px; /* Add spacing between items */
+            }
+
+            .side-navbar a {
+                padding: 10px; /* Adjust padding for smaller screens */
+            }
+
+            .container {
+                flex-direction: column; /* Stack items vertically on smaller screens */
+                align-items: center; /* Center items */
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <nav class="side-navbar">
-            <ul>
-                <li><a href="index.html"><img src="h.jpg" alt="Home"></a></li>
-                <li><a href="katalog.html"><img src="kkk.jpeg" alt="Shop"></a></li>
-                <li><a href="bay.html"><img src="s.png" alt="Keranjang"></a></li>
-                <li><a href="d.html"><img src="kk.png" alt="Send Your Document"></a></li>
-            </ul>
-        </nav>
-
         <h2>PEMBAYARAN BISA MELALUI</h2>
 
         <div class="payment-method dana">
@@ -129,6 +149,15 @@
             <button class="copy-button" onclick="copyToClipboard('bca-number')">SALIN</button>
         </div>
     </div>
+
+    <nav class="side-navbar">
+        <ul>
+            <li><a href="index.html"><img src="h.jpg" alt="Home"></a></li>
+            <li><a href="katalog.html"><img src="kkk.jpeg" alt="Shop"></a></li>
+            <li><a href="bay.html"><img src="s.png" alt="Keranjang"></a></li>
+            <li><a href="d.html"><img src="kk.png" alt="Send Your Document"></a></li>
+        </ul>
+    </nav>
 
     <script>
         function copyToClipboard(elementId) {
